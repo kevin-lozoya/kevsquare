@@ -1,0 +1,8 @@
+<div class="alert alert-primary">
+  <a appContarClicks [lugar]="lugar" routerLink="/detalle/{{lugar.id}}">
+    <h3>{{lugar.nombre}} <fa name="star"></fa>
+    </h3>
+  </a>
+  <small>Creado el: {{lugar.id | date}}</small>
+  <p [innerHtml]="lugar.descripcion | appLinkify"></p>
+</div>

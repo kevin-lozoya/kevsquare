@@ -1,0 +1,25 @@
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-md-8">
+      <button routerLink="/crear/new" class="btn btn-primary" *ngIf="isAdmin">Crear nuevo negocio</button>
+      <h2>Lugares cercanos</h2>
+      <ul class="list-group">
+          <li class="list-group-item" *ngFor="let lugar of lugares">
+            <a routerLink="/detalle/{{lugar.id}}">
+              <h3>{{lugar.nombre}} <fa name="star" *ngIf="lugar.plan == 'PAGADO' && dateNow >= lugar.startDate && dateNow <= lugar.endDate" ></fa></h3>
+            </a>
+            <small>Creado el: {{lugar.id | date}}</small>
+            <p [innerHtml]="lugar.descripcion | appLinkify"></p>
+          </li>
+      </ul>
+    </div>
+
+    <div class="col-md-4">
+      <h2>Lugares destacados</h2>
+
+      <ng-container *ngFor="let lugar of destacados">
+        <app-lugar-destacado [lugar]="lugar" [@contenedorAnimable]="state" *ngIf="dateNow >= lugar.startDate && dateNow <= lugar.endDate"></app-lugar-destacado>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/lugares">Lugares</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
+  </ol>
+</nav>
+
+<hr>
+
+<div class="container">
+  <div class="form-group">
+    <label>Nombre</label>
+    <input [(ngModel)]="lugar.nombre" type="text" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Descripción</label>
+    <textarea [(ngModel)]="lugar.descripcion" type="text" class="form-control"></textarea>
+  </div>
+  <div class="form-group">
+    <label>Tipo</label>
+    <select [(ngModel)]="lugar.tipo" class="form-control">
+      <option value="RESTAURANTE">Restaurante</option>
+      <option value="COMIDA PARA LLEVAR">Comida para llevar</option>
+      <option value="BAR-CAFETERIA">Bar-Cafetería</option>
+      <option value="ROPA">Ropa</option>
+      <option value="SUPERMERCADO">Supermercado</option>
+      <option value="FLORISTERIA">Floristería</option>
+      <option value="ESTUDIO DE TATUAJE">Estudio de tatuaje</option>
+      <option value="NOTARIA">Notaría</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Plan</label>
+    <select [(ngModel)]="lugar.plan" class="form-control">
+      <option value="PAGADO">Pagado</option>
+      <option value="GRATUITO">Gratuíto</option>
+    </select>
+  </div>
+  <hr>
+  <div class="form-row" *ngIf="lugar.plan == 'PAGADO'">
+    <div class="form-group col-md-6">
+      <label>Fecha Inicio</label>
+      <input type="date" class="form-control" [(ngModel)]="lugar.startDate">
+    </div>
+    <div class="form-group col-md-6">
+      <label>Fecha Fin</label>
+      <input type="date" class="form-control" [(ngModel)]="lugar.endDate">
+    </div>
+  </div>
+  <h2>Datos de Dirección</h2>
+  <div class="alert alert-secondary">
+    <form>
+      <label>Buscar dirección en Google Maps</label>
+      <input type="text" #searchBox class="form-control" (keyup)="search(searchBox.value)">
+    </form>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let result of results$ | async" (click)="seleccionarDireccion(result)">
+        {{result.formatted_address}}
+      </li>
+    </ul>
+  </div>
+  <div class="form-group">
+    <label>Calle y número</label>
+    <input [(ngModel)]="lugar.calle" type="text" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Ciudad</label>
+    <input [(ngModel)]="lugar.ciudad" type="text" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>País</label>
+    <input [(ngModel)]="lugar.pais" type="text" class="form-control">
+  </div>
+  <hr>
+  <button class="btn btn-primary" (click)="guardarLugar()">Crear</button>&nbsp;
+  <button routerLink="/lugares" class="btn btn-light">Cancelar</button>
+</div>

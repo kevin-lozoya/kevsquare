@@ -1,0 +1,27 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/lugares">Lugares</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{lugar.nombre}}</li>
+  </ol>
+</nav>
+
+<agm-map [latitude]="lugar.lat" [longitude]="lugar.lng" [zoom]="17">
+  <agm-marker [latitude]="lugar.lat" [longitude]="lugar.lng"></agm-marker>
+</agm-map>
+
+<hr>
+
+<div class="container">
+  <h1>{{lugar.nombre}}</h1>
+  <small>{{lugar.tipo}}</small>
+  <hr>
+  <br>
+  <div class="alert alert-secondary">
+    <p [innerHtml]="lugar.descripcion | appLinkify"></p>
+  </div>
+  
+  <ng-container *ngIf="lugar.plan == 'GRATUITO'">
+    <h2>Destacados</h2>
+    <app-lugar-destacado [lugar]="item" *ngFor="let item of destacados"></app-lugar-destacado>
+  </ng-container>
+</div>
